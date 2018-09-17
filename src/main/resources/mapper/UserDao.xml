@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+				
+<mapper namespace="com.demo.dao.UserDao">
+	
+	<select id="selectAll" resultType="com.demo.bean.UserDomain">
+	    SELECT * FROM PERSON 
+	</select>
+	
+	<select id="selectUser" resultType="com.demo.bean.UserDomain">
+		SELECT * FROM PERSON WHERE ID = #{id} 
+	</select>
+	
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.demo.bean.UserDomain">
+		INSERT INTO PERSON (NAME, AGE, SEX, TXT) 
+		VALUES (#{name}, #{age}, #{sex}, #{txt}) 
+	</insert>
+	
+	<update id="upUser" parameterType="com.demo.bean.UserDomain">
+		UPDATE PERSON SET NAME=#{name},AGE=#{age},SEX=#{sex},TXT=#{txt} WHERE ID = #{id} 
+	</update>
+	
+	<delete id="deUser">
+		DELETE FROM PERSON WHERE ID = #{id}
+	</delete>
+
+</mapper>
