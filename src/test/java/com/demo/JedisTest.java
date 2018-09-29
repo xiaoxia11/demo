@@ -13,6 +13,7 @@ public class JedisTest {
 		String name = jedis.get("name");
 		System.out.println(name);
 		jedis.close();
+		
 	}
 	
 }
