@@ -65,7 +65,20 @@
 		<dependency>
 		    <groupId>redis.clients</groupId>
 		    <artifactId>jedis</artifactId>
-		</dependency>		
+		</dependency>	
+		
+		<!-- 热部署 -->	
+		<!-- devtools也可实现页面热部署，这个只需在配置文件中配置spring.thymeleaf.cache=false -->
+		<!-- 实现类文件和属性文件的热部署，即devtools会监听classpath下文件的变动 -->
+		<!-- 1.base classloader(Base类加载器)：加载不改变的class，例如第三方提供的jar包 -->
+		<!-- 2.restart calssloader(Restart类加载器)：加载正在开发的class -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-devtools</artifactId>
+		    <!-- optional=true,表示依赖不回传递，该项目依赖devtools；
+		    	之后依赖boot项目的项目如果要是使用，需重新引入devtools -->
+		    <optional>true</optional>
+		</dependency>
 		
 		<!-- commons-pool2 -->
 		<dependency>
@@ -107,6 +120,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>  
+					<fork>true</fork>
+					<addResources>true</addResources>  
+                </configuration>  
 			</plugin>
 		</plugins>		
 	</build>
