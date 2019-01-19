@@ -1,8 +1,10 @@
 package com.demo.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.bean.UserDomain;
 import com.demo.service.UserService;
+import com.demo.util.Export;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 public class UserController {
@@ -22,50 +27,57 @@ public class UserController {
 
 	@RequestMapping(value="/info")
 	public String userInfo(){
-		return "index";
+		return "subject";
 	}
 	
 	@RequestMapping(value="/selectAll",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> selectAll(){
-		Map<String, Object> map = new HashMap<String, Object>();
+	public PageInfo<UserDomain> selectAll(){
+		PageHelper.startPage(1, 5);
 		List<UserDomain> list = userService.selectAll();
-		map.put("list", list);
-		return map;
+		PageInfo<UserDomain> info = new PageInfo<UserDomain>(list);
+		return info;
 	}
 	
 	@RequestMapping(value="/selectUser",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> selectUser(String id) {
-		//int i=1/0;   测试ClobalException.java这个异常处理类
-		Map<String, Object> map = new HashMap<String, Object>();
-		UserDomain user = userService.selectUser(id);
-		map.put("user", user);
-		return map;
+	public UserDomain selectUser(String id) {
+		return userService.selectUser(id);
 	}
 	
 	@RequestMapping(value="/addUser",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> addUser(@RequestBody UserDomain user){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("success", userService.addUser(user));
-		return map;
+	public int addUser(@RequestBody UserDomain user){
+		return userService.addUser(user);
 	}
 	
 	@RequestMapping(value="/upUser",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> upUser(@RequestBody UserDomain user){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("success", userService.upUser(user));
-		return map;
+	public int upUser(@RequestBody UserDomain user){
+		return userService.upUser(user);
 	}
 	
 	@RequestMapping(value="/deUser",method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String,Object> deUser(String id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("success", userService.deUser(id));
-		return map;
+	public int deUser(String id){
+		return userService.deUser(id);
+	}
+	
+	/**
+	 * 导出
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "exportExcel",method = RequestMethod.GET)
+	@ResponseBody
+	public void exportExcel(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		List<UserDomain> list = userService.selectAll();
+		String fileName = "人员清单";
+		String[] key = Export.keys;
+		String[] name = Export.value;
+		List<Map<String, Object>> listMap = Export.creatExcel(list);
+		Export.creatExcelRecord(request, response, name, key, listMap, fileName);
 	}
 
 }
