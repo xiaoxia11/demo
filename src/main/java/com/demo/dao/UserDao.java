@@ -10,7 +10,7 @@ public interface UserDao {
 	//@Select("select * from person")
 	List<UserDomain> selectAll();
 	
-	UserDomain selectUser(String id);
+	List<UserDomain> selectUser(String sex);
 	
 	int addUser(UserDomain user);
 	

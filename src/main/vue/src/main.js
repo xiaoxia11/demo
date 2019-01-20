@@ -3,8 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+import 'jquery'
 
+import 'font-awesome/css/font-awesome.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
+Vue.prototype.HOST = '/api' // 跨域访问设置
 
 /* eslint-disable no-new */
 new Vue({

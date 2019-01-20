@@ -41,8 +41,8 @@ public class UserController {
 	
 	@RequestMapping(value="/selectUser",method=RequestMethod.GET)
 	@ResponseBody
-	public UserDomain selectUser(String id) {
-		return userService.selectUser(id);
+	public List<UserDomain> selectUser(String sex) {
+		return userService.selectUser(sex);
 	}
 	
 	@RequestMapping(value="/addUser",method=RequestMethod.POST)

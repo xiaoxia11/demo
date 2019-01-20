@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public UserDomain selectUser(String id) {
-		return userDao.selectUser(id);
+	public List<UserDomain> selectUser(String sex) {
+		return userDao.selectUser(sex);
 	}
 
 	@Override

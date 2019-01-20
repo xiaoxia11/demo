@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectUser" resultType="com.demo.bean.UserDomain">
-		SELECT * FROM PERSON WHERE ID = #{id} 
+		SELECT * FROM PERSON WHERE SEX = #{sex} 
 	</select>
 	
 	<insert id="addUser" useGeneratedKeys="true" keyProperty="id" keyColumn="ID" parameterType="com.demo.bean.UserDomain">

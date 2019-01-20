@@ -8,7 +8,7 @@ public interface UserService {
 	
 	List<UserDomain> selectAll();
 	
-	UserDomain selectUser(String id);
+	List<UserDomain> selectUser(String sex);
 	
 	int addUser(UserDomain user);
 	

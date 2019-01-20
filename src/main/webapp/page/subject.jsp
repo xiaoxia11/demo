@@ -46,7 +46,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<%-- <%@include file="../../page/util/page.jsp"%> --%>
 	</div>
 </div>
 
@@ -90,6 +89,9 @@ var vue = new Vue({
                 	type:"post",
                 	data:this.subRow,
                 	dataType:"json",
+                	headers:{
+          		      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          		    },
                 	success:function(data){
                 		alert("新增成功!");
                 		this_.getList();
@@ -99,6 +101,9 @@ var vue = new Vue({
         		$.ajax({
                 	url:"/demo/upUser",
                 	type:"post",
+                	headers:{
+          		      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+          		    },
                 	data:this.subRow,
                 	dataType:"json",
                 	success:function(data){
